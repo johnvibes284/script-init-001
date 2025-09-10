@@ -1,2 +1,3 @@
-Write-Output "Hello from safe GitHub payload!"`nGet-Date`
+Write-Output "Hello from safe GitHub payload!"`nGet-Date
+
 
